@@ -1,0 +1,126 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.MvvmToolkitEnableINotifyPropertyChangingSupport = true
+build_property._MvvmToolkitIsUsingWindowsRuntimePack = false
+build_property.CsWinRTComponent = 
+build_property.CsWinRTAotOptimizerEnabled = 
+build_property.CsWinRTAotWarningLevel = 
+build_property.TargetFramework = net8.0-ios
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Mockup
+build_property.ProjectDir = C:\Users\cisco01\Desktop\MockupsGym\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/cisco01/Desktop/MockupsGym/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/EnterCodePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.EnterCodePage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\EnterCodePage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\EnterCodePage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/LoginPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.LoginPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\LoginPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\LoginPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/NewPasswordPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.NewPasswordPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\NewPasswordPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\NewPasswordPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/RecoverPasswordPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.RecoverPasswordPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\RecoverPasswordPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\RecoverPasswordPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/RegisterPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.RegisterPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\RegisterPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\RegisterPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/RoutineFridayPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.RoutineFridayPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\RoutineFridayPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\RoutineFridayPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/RoutineMondayPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.RoutineMondayPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\RoutineMondayPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\RoutineMondayPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/RoutineSaturdayPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.RoutineSaturdayPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\RoutineSaturdayPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\RoutineSaturdayPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/RoutineSundayPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.RoutineSundayPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\RoutineSundayPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\RoutineSundayPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/RoutineThursdayPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.RoutineThursdayPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\RoutineThursdayPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\RoutineThursdayPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/RoutineTuesdayPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.RoutineTuesdayPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\RoutineTuesdayPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\RoutineTuesdayPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/RoutineWednesdayPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.RoutineWednesdayPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\RoutineWednesdayPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\RoutineWednesdayPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/MVVM/View/UserDashboardPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.MVVM.View.UserDashboardPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MVVM\View\UserDashboardPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MVVM\View\UserDashboardPage.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/Resources/Styles/Colors.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.Resources.Styles.Colors.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
+
+[C:/Users/cisco01/Desktop/MockupsGym/Resources/Styles/Styles.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Mockup.Resources.Styles.Styles.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml

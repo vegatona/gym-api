@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mockup.MVVM.ModelViewModel"
+             x:Class="Mockup.RoutineThursdayPage"
+             Title="Jueves - Rutina de Entrenamiento">
+
+    <ContentPage.BindingContext>
+        <vm:RoutineViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView Padding="10">
+        <Frame Padding="20" CornerRadius="15" HasShadow="True" BackgroundColor="White">
+            <VerticalStackLayout Padding="10" Spacing="10">
+                <Label Text="Rutina del Jueves" Padding="50" FontSize="22" FontAttributes="Bold"
+                       HorizontalOptions="Center" VerticalOptions="Start"/>
+
+                <Label Text="Selecciona el musculo a entrenar" FontAttributes="Bold" FontSize="14"
+                       HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowPickerCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Picker Title="Elige un musculo"
+                        ItemsSource="{Binding Muscles}"
+                        SelectedItem="{Binding SelectedMuscle, Mode=TwoWay}"
+                        IsVisible="{Binding IsPickerVisible}"/>
+
+                <Label Text="{Binding SelectedMuscleText}" FontSize="16"
+                       HorizontalOptions="Center" VerticalOptions="Start"/>
+
+                <StackLayout IsVisible="{Binding AreExercisesVisible}" Padding="10">
+                    <Label Text="Ejercicios propuestos:" FontSize="18" FontAttributes="Bold" HorizontalOptions="Start"/>
+
+                    <ListView ItemsSource="{Binding Exercises}"
+                              SeparatorVisibility="None"
+                              HasUnevenRows="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Vertical" Padding="10">
+                                        <Label Text="{Binding Name}" FontSize="16"
+                                               VerticalOptions="Center" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding Description}" FontSize="14"
+                                               VerticalOptions="Center" HorizontalOptions="Center"
+                                               LineBreakMode="WordWrap" Padding="5"/>
+                                        <Image Source="{Binding Image}" HeightRequest="250"
+                                               WidthRequest="200" HorizontalOptions="Center"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </VerticalStackLayout>
+        </Frame>
+    </ScrollView>
+</ContentPage>
+

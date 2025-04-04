@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Mockup.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Mockup"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Mockup">
+
+    <!-- Página de inicio de sesión -->
+    <ShellContent
+        Title="Inicio"
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="LoginPage" />
+
+    <!-- Página de Registro -->
+    <ShellContent
+        Title="Registro"
+        ContentTemplate="{DataTemplate local:RegisterPage}"
+        Route="RegisterPage" />
+
+    <!-- Página de Recuperar Contraseña -->
+    <ShellContent
+        Title="Recuperar Contraseña"
+        ContentTemplate="{DataTemplate local:RecoverPasswordPage}"
+        Route="RecoverPasswordPage" />
+
+    <!-- Página de Ingresar Código -->
+    <ShellContent
+        Title="Ingresar Código"
+        ContentTemplate="{DataTemplate local:EnterCodePage}"
+        Route="EnterCodePage" />
+
+    <!-- Página de Nueva Contraseña -->
+    <ShellContent
+        Title="Nueva Contraseña"
+        ContentTemplate="{DataTemplate local:NewPasswordPage}"
+        Route="NewPasswordPage" />
+
+    <!-- Página de Usuario Dashboard -->
+    <ShellContent
+        Title="Dashboard"
+        ContentTemplate="{DataTemplate local:UserDashboardPage}"
+        Route="UserDashboardPage" />
+
+    <!-- Páginas de Rutina (días de la semana) -->
+    <ShellContent
+    Title="Lunes"
+    ContentTemplate="{DataTemplate local:RoutineMondayPage}"
+    Route="RoutineMondayPage" />
+
+    <ShellContent
+        Title="Martes"
+        ContentTemplate="{DataTemplate local:RoutineTuesdayPage}"
+        Route="RoutineTuesdayPage" />
+
+    <ShellContent
+        Title="Miércoles"
+        ContentTemplate="{DataTemplate local:RoutineWednesdayPage}"
+        Route="RoutineWednesdayPage" />
+
+    <ShellContent
+        Title="Jueves"
+        ContentTemplate="{DataTemplate local:RoutineThursdayPage}"
+        Route="RoutineThursdayPage" />
+
+    <ShellContent
+        Title="Viernes"
+        ContentTemplate="{DataTemplate local:RoutineFridayPage}"
+        Route="RoutineFridayPage" />
+
+    <ShellContent
+        Title="Sábado"
+        ContentTemplate="{DataTemplate local:RoutineSaturdayPage}"
+        Route="RoutineSaturdayPage" />
+
+    <ShellContent
+        Title="Domingo"
+        ContentTemplate="{DataTemplate local:RoutineSundayPage}"
+        Route="RoutineSundayPage" />
+
+</Shell>

@@ -1,0 +1,147 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mockup.MVVM.ModelViewModel"
+             x:Class="Mockup.UserDashboardPage"
+             Title="Iron Revolution Center">
+
+    <ContentPage.BindingContext>
+        <vm:UserDashboardViewModel />
+    </ContentPage.BindingContext>
+
+    <!-- Toolbar para la acción de cerrar sesión -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cerrar sesión"
+                     IconImageSource="logout.png"
+                     Order="Primary"
+                     Priority="0"
+                     Command="{Binding LogoutCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Información del usuario -->
+            <HorizontalStackLayout Spacing="10">
+                <Image Source="user.png" WidthRequest="40" HeightRequest="40" />
+                <VerticalStackLayout>
+                    <Label Text="{Binding Username}" FontSize="20" FontAttributes="Bold" />
+                    <Label Text="{Binding UserNumber}" FontSize="16" TextColor="Gray" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <!-- Información adicional -->
+            <Frame CornerRadius="10" Padding="10" BorderColor="Gray">
+                <VerticalStackLayout>
+                    <Label Text="Información:" FontSize="18" FontAttributes="Bold" />
+                    <StackLayout Padding="10" Spacing="10">
+                        <HorizontalStackLayout>
+                            <Label Text="Tipo de sangre: " FontSize="16" FontAttributes="Bold"/>
+                            <Label Text="{Binding BloodType}" FontSize="16" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Membresía: " FontSize="16" FontAttributes="Bold"/>
+                            <Label Text="{Binding Membership}" FontSize="16" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Fecha de finalización: " FontSize="16" FontAttributes="Bold"/>
+                            <Label Text="{Binding ExpirationDate}" FontSize="16" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Observaciones: " FontSize="16" FontAttributes="Bold"/>
+                            <Label Text="{Binding Observations}" FontSize="16" />
+                        </HorizontalStackLayout>
+
+                        <!-- Botón para regenerar código -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <ImageButton Source="refresh.png"
+                                         WidthRequest="570"
+                                         HeightRequest="30"
+                                         Command="{Binding RegenerateCodeCommand}" />
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Rutinas y selección de actividad -->
+            <VerticalStackLayout Spacing="20">
+                <!-- Mostrar/Ocultar botones de los días de la semana -->
+                <Button Text="Rutinas"
+                        FontSize="16"
+                        BackgroundColor="Black"
+                        TextColor="White"
+                        Command="{Binding ToggleDayButtonsCommand}"
+                        HorizontalOptions="FillAndExpand"/>
+
+                <!-- Botones de días (visible u oculto según la propiedad AreDayButtonsVisible) -->
+                <VerticalStackLayout Spacing="8" HorizontalOptions="Center" IsVisible="{Binding AreDayButtonsVisible}">
+                    <Grid ColumnSpacing="10" RowSpacing="10" HorizontalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Botones de días -->
+                        <Button Text="Lunes" Command="{Binding SelectDayCommand}" CommandParameter="RoutineMondayPage"
+                                BackgroundColor="LightGray" TextColor="Black" HeightRequest="40" WidthRequest="100" FontSize="14"
+                                Grid.Row="0" Grid.Column="0"/>
+                        <Button Text="Martes" Command="{Binding SelectDayCommand}" CommandParameter="RoutineTuesdayPage" 
+                                BackgroundColor="LightGray" TextColor="Black" HeightRequest="40" WidthRequest="100" FontSize="14"
+                                Grid.Row="0" Grid.Column="1"/>
+
+                        <Button Text="Miércoles" Command="{Binding SelectDayCommand}" CommandParameter="RoutineWednesdayPage" 
+                                BackgroundColor="LightGray" TextColor="Black" HeightRequest="40" WidthRequest="100" FontSize="14"
+                                Grid.Row="0" Grid.Column="2"/>
+
+                        <Button Text="Jueves" Command="{Binding SelectDayCommand}" CommandParameter="RoutineThursdayPage" 
+                                BackgroundColor="LightGray" TextColor="Black" HeightRequest="40" WidthRequest="100" FontSize="14"
+                                Grid.Row="1" Grid.Column="0"/>
+
+                        <Button Text="Viernes" Command="{Binding SelectDayCommand}" CommandParameter="RoutineFridayPage" 
+                                BackgroundColor="LightGray" TextColor="Black" HeightRequest="40" WidthRequest="100" FontSize="14"
+                                Grid.Row="1" Grid.Column="1"/>
+
+                        <Button Text="Sábado" Command="{Binding SelectDayCommand}" CommandParameter="RoutineSaturdayPage" 
+                                BackgroundColor="LightGray" TextColor="Black" HeightRequest="40" WidthRequest="100" FontSize="14"
+                                Grid.Row="1" Grid.Column="2"/>
+
+                        <Button Text="Domingo" Command="{Binding SelectDayCommand}" CommandParameter="RoutineSundayPage"
+                                BackgroundColor="LightGray" TextColor="Black" HeightRequest="42" WidthRequest="100" FontSize="14"
+                                Grid.Row="2" Grid.Column="1" HorizontalOptions="Center"/>
+                    </Grid>
+                </VerticalStackLayout>
+
+                <!-- Selectores para rutinas -->
+                <Picker x:Name="RoutinePicker"
+                        ItemsSource="{Binding RoutineOptions}"
+                        SelectedItem="{Binding SelectedRoutine}"
+                        Title="Selecciona el músculo a entrenar"
+                        IsVisible="False"/>
+                <Picker x:Name="DetailedRoutinePicker"
+                        ItemsSource="{Binding DetailedRoutines}"
+                        SelectedItem="{Binding SelectedDetailedRoutine}"
+                        Title="Selecciona una rutina detallada"
+                        IsVisible="{Binding IsRoutineVisible}"/>
+
+                <!-- Botón para actividad -->
+                <Button Text="Actividad"
+                        FontSize="16"
+                        BackgroundColor="Black"
+                        TextColor="White"
+                        Command="{Binding ToggleDatePickerCommand}"
+                        HorizontalOptions="FillAndExpand"/>
+
+                <!-- DatePicker para seleccionar fecha de actividad -->
+                <DatePicker x:Name="ActivityDatePicker"
+                            Date="{Binding SelectedDate}"
+                            Format="D"
+                            IsVisible="{Binding IsActivityDatePickerVisible}"
+                            MaximumDate="{Binding MaximumDate}"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

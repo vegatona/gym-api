@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Mockup"
+             xmlns:vm="clr-namespace:Mockup.MVVM.ModelViewModel"
+             x:Class="Mockup.LoginPage"
+             Title="Iron Revolution Center"
+             BackgroundColor="White">
+
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*,Auto">
+        <VerticalStackLayout Padding="30" Spacing="20"
+                             VerticalOptions="CenterAndExpand"
+                             HorizontalOptions="FillAndExpand">
+            <Label Text="Iniciar Sesión" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,-30,0,0"/>
+            <Image Source="gym.png" WidthRequest="2000" HeightRequest="135" VerticalOptions="Center"/>
+            <Label Text="Ingresa tu usuario y contraseña para continuar." FontSize="14" HorizontalOptions="Center"/>
+
+            <Frame CornerRadius="10" BackgroundColor="#F0F0F0" Padding="10">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="identificacion.png" WidthRequest="25" HeightRequest="25" VerticalOptions="Center"/>
+                    <Entry Text="{Binding UserNumber, Mode=TwoWay}" Placeholder="Usuario" Keyboard="Text" WidthRequest="2000"/>
+                </HorizontalStackLayout>
+            </Frame>
+
+            <Frame CornerRadius="10" BackgroundColor="#F0F0F0" Padding="10">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="lock.png" WidthRequest="25" HeightRequest="25" VerticalOptions="Center"/>
+                    <Entry Text="{Binding Password, Mode=TwoWay}" Placeholder="Contraseña" Keyboard="Text" WidthRequest="2000" IsPassword="True"/>
+                </HorizontalStackLayout>
+            </Frame>
+
+            <Button Text="Iniciar sesión" BackgroundColor="Black" TextColor="White" FontSize="18" HeightRequest="50" CornerRadius="10" Command="{Binding LoginCommand}" IsEnabled="{Binding IsLoginEnabled}"/>
+
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="¿Has olvidado tu contraseña?" TextColor="Blue">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToRecoverPasswordCommand}" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="¿No tienes cuenta?"/>
+                        <Span Text=" Registrarte aquí" TextColor="Blue">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToRegisterCommand}" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

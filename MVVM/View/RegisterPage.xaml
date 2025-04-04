@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mockup.MVVM.ModelViewModel"
+             x:Class="Mockup.RegisterPage"
+             Title="Registro - Iron Revolution Center"
+             BackgroundColor="White">
+    <!-- Se asigna el BindingContext al ViewModel de registro -->
+    <ContentPage.BindingContext>
+        <vm:RegisterViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*,Auto">
+        <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+            <Label Text="Crea tu cuenta" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,-30,0,50"/>
+            <Label Text="Crea una cuenta para poder iniciar sesión" FontSize="14" HorizontalOptions="Center" Margin="0,-30,0,10"/>
+
+            <!-- Campo de Usuario -->
+            <Frame CornerRadius="5" BackgroundColor="#F0F0F0" Padding="10">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="identificacion.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                    <Entry Text="{Binding Username, Mode=TwoWay}" Placeholder="Usuario" Keyboard="Text" WidthRequest="2000"/>
+                </HorizontalStackLayout>
+            </Frame>
+
+            <!-- Mensaje de error debajo del campo de usuario -->
+            <Label Text="{Binding UsernameError}" TextColor="Red" IsVisible="{Binding IsUsernameErrorVisible}"/>
+
+            <!-- Campo de Contraseña -->
+            <Frame CornerRadius="5" BackgroundColor="#F0F0F0" Padding="10">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="lock.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                    <Entry Text="{Binding Password, Mode=TwoWay}" Placeholder="Contraseña" IsPassword="True" WidthRequest="2000"/>
+                </HorizontalStackLayout>
+            </Frame>
+
+            <!-- Mensaje de error debajo del campo de contraseña -->
+            <Label Text="{Binding PasswordError}" TextColor="Red" IsVisible="{Binding IsPasswordErrorVisible}"/>
+
+            <!-- Repetir Contraseña -->
+            <Frame CornerRadius="5" BackgroundColor="#F0F0F0" Padding="10">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="lock.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                    <Entry Text="{Binding ConfirmPassword, Mode=TwoWay}" Placeholder="Repite Contraseña" IsPassword="True" WidthRequest="2000"/>
+                </HorizontalStackLayout>
+            </Frame>
+
+            <!-- Mensaje de error si las contraseñas no coinciden -->
+            <Label Text="{Binding ConfirmPasswordError}" TextColor="Red" IsVisible="{Binding IsConfirmPasswordErrorVisible}"/>
+
+            <!-- Botón de registro, habilitado solo si la información es válida -->
+            <Button Text="Registrarse" BackgroundColor="Black" TextColor="White" CornerRadius="5"
+                    Command="{Binding RegisterCommand}" IsEnabled="{Binding IsRegisterEnabled}"/>
+
+            <!-- Enlace para ir al Login -->
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="¿Ya tienes una cuenta?" />
+                        <Span Text=" Inicia Sesión aquí" TextColor="Blue">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToLoginCommand}" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,56 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mockup.MVVM.ModelViewModel"
+             x:Class="Mockup.EnterCodePage"
+             Title="Código de Recuperación - Iron Revolution Center">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <!-- Título y subtítulo -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Código" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" 
+                       Margin="40,100,40,5"/>
+                <Image Source="codigo.png" WidthRequest="1500" HeightRequest="250" VerticalOptions="Center" Margin="40,0,0,5"/>
+                <Label Text="Ingresa tu Código correctamente" FontSize="14" HorizontalOptions="Center"/>
+
+                <!-- Código de verificación: Se vinculan cada uno a una propiedad en el ViewModel -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Frame BorderColor="Gray" Padding="0" HasShadow="False" CornerRadius="5">
+                        <Entry x:Name="CodeEntry1" Text="{Binding Code1, Mode=TwoWay}" WidthRequest="40" MaxLength="1" Keyboard="Numeric"
+                               BackgroundColor="Transparent" HorizontalTextAlignment="Center" />
+                    </Frame>
+                    <Frame BorderColor="Gray" Padding="0" HasShadow="False" CornerRadius="5">
+                        <Entry x:Name="CodeEntry2" Text="{Binding Code2, Mode=TwoWay}" WidthRequest="40" MaxLength="1" Keyboard="Numeric"
+                               BackgroundColor="Transparent" HorizontalTextAlignment="Center" />
+                    </Frame>
+                    <Frame BorderColor="Gray" Padding="0" HasShadow="False" CornerRadius="5">
+                        <Entry x:Name="CodeEntry3" Text="{Binding Code3, Mode=TwoWay}" WidthRequest="40" MaxLength="1" Keyboard="Numeric"
+                               BackgroundColor="Transparent" HorizontalTextAlignment="Center" />
+                    </Frame>
+                    <Label Text="-" FontSize="22" VerticalOptions="Center"/>
+                    <Frame BorderColor="Gray" Padding="0" HasShadow="False" CornerRadius="5">
+                        <Entry x:Name="CodeEntry4" Text="{Binding Code4, Mode=TwoWay}" WidthRequest="40" MaxLength="1" Keyboard="Numeric"
+                               BackgroundColor="Transparent" HorizontalTextAlignment="Center" />
+                    </Frame>
+                    <Frame BorderColor="Gray" Padding="0" HasShadow="False" CornerRadius="5">
+                        <Entry x:Name="CodeEntry5" Text="{Binding Code5, Mode=TwoWay}" WidthRequest="40" MaxLength="1" Keyboard="Numeric"
+                               BackgroundColor="Transparent" HorizontalTextAlignment="Center" />
+                    </Frame>
+                    <Frame BorderColor="Gray" Padding="0" HasShadow="False" CornerRadius="5">
+                        <Entry x:Name="CodeEntry6" Text="{Binding Code6, Mode=TwoWay}" WidthRequest="40" MaxLength="1" Keyboard="Numeric"
+                               BackgroundColor="Transparent" HorizontalTextAlignment="Center" />
+                    </Frame>
+                </HorizontalStackLayout>
+
+                <!-- Mensaje de error -->
+                <Label Text="{Binding ErrorMessage}" TextColor="Red" FontSize="14" IsVisible="{Binding HasError}"
+                       HorizontalOptions="Center" />
+
+                <!-- Botón para confirmar: se habilita cuando se han ingresado 6 dígitos -->
+                <Button x:Name="ConfirmButton" Text="Confirmar" BackgroundColor="Black" TextColor="White" CornerRadius="5"
+                        Command="{Binding ConfirmCommand}" IsEnabled="{Binding IsConfirmEnabled}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+    
