@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
+using System.Globalization;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
+using Mockup.MVVM.Models; // Modelo ClienteDto
 
 namespace Mockup.MVVM.ModelViewModel
 {
     [QueryProperty(nameof(Username), "username")]
     [QueryProperty(nameof(UserNumber), "UserNumber")]
-
     public class UserDashboardViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // Propiedades recibidas por Query
         private string _username;
         public string Username
         {
@@ -32,17 +36,79 @@ namespace Mockup.MVVM.ModelViewModel
                 {
                     _userNumber = value;
                     OnPropertyChanged(nameof(UserNumber));
+                    Task.Run(() => LoadUserDataAsync(_userNumber));
                 }
             }
         }
 
-        // Propiedades para la información adicional
-        public string BloodType { get; set; } = "O+";
-        public string Membership { get; set; } = "Premium";
-        public string ExpirationDate { get; set; } = "31/12/2025";
-        public string Observations { get; set; } = "Sin observaciones.";
+        // Propiedades a mostrar en la UI
+        private string _nombreCompleto;
+        public string NombreCompleto
+        {
+            get => _nombreCompleto;
+            set { _nombreCompleto = value; OnPropertyChanged(nameof(NombreCompleto)); }
+        }
 
-        // Propiedades para las opciones de rutina
+        private string _nip;
+        public string NIP
+        {
+            get => _nip;
+            set { _nip = value; OnPropertyChanged(nameof(NIP)); }
+        }
+
+        private string _foto;
+        public string Foto
+        {
+            get => _foto;
+            set { _foto = value; OnPropertyChanged(nameof(Foto)); }
+        }
+
+        private string _celular;
+        public string Celular
+        {
+            get => _celular;
+            set { _celular = value; OnPropertyChanged(nameof(Celular)); }
+        }
+
+        private string _claveSeguridad;
+        public string ClaveSeguridad
+        {
+            get => _claveSeguridad;
+            set { _claveSeguridad = value; OnPropertyChanged(nameof(ClaveSeguridad)); }
+        }
+
+        // Información adicional
+        private string _membership;
+        public string Membership
+        {
+            get => _membership;
+            set { _membership = value; OnPropertyChanged(nameof(Membership)); }
+        }
+
+        private string _expirationDate ;
+        // Si la API no devuelve fecha, quedará null
+        public string ExpirationDate
+        {
+            get => _expirationDate;
+            set { _expirationDate = value; OnPropertyChanged(nameof(ExpirationDate)); }
+        }
+
+        public string _observacion;
+        public string Observations
+        {
+            get => _observacion;
+            set { _observacion = value; OnPropertyChanged(nameof(Observations)); }
+        }
+
+        // Propiedad para el nuevo código (opcional, si se usa)
+        private string _newCode;
+        public string NewCode
+        {
+            get => _newCode;
+            set { _newCode = value; OnPropertyChanged(nameof(NewCode)); }
+        }
+
+        // Propiedades para rutinas y actividades
         public ObservableCollection<string> RoutineOptions { get; } = new ObservableCollection<string>
         {
             "Pecho", "Bíceps", "Tríceps", "Espalda", "Pierna"
@@ -56,7 +122,7 @@ namespace Mockup.MVVM.ModelViewModel
             {
                 _selectedRoutine = value;
                 OnPropertyChanged(nameof(SelectedRoutine));
-                UpdateDetailedRoutines();       // Actualiza las rutinas detalladas según la selección
+                UpdateDetailedRoutines();
                 IsRoutineVisible = !string.IsNullOrEmpty(value);
             }
         }
@@ -77,11 +143,10 @@ namespace Mockup.MVVM.ModelViewModel
                 _selectedDetailedRoutine = value;
                 OnPropertyChanged(nameof(SelectedDetailedRoutine));
                 if (!string.IsNullOrEmpty(value))
-                    ShowRoutineDetailModal();  // Muestra un modal al seleccionar una rutina detallada
+                    ShowRoutineDetailModal();
             }
         }
 
-        // Propiedades para la actividad (fecha)
         private DateTime _selectedDate = DateTime.Today;
         public DateTime SelectedDate
         {
@@ -90,15 +155,12 @@ namespace Mockup.MVVM.ModelViewModel
             {
                 _selectedDate = value;
                 OnPropertyChanged(nameof(SelectedDate));
-                // Mostrar información de la fecha seleccionada
                 ShowActivityInfo();
             }
         }
 
-        // Propiedad para el máximo de la fecha (según la zona horaria de Sonora)
         public DateTime MaximumDate { get; set; }
 
-        // Propiedades para controlar la visibilidad de controles
         private bool _isRoutineVisible;
         public bool IsRoutineVisible
         {
@@ -120,7 +182,7 @@ namespace Mockup.MVVM.ModelViewModel
             set { _isActivityDatePickerVisible = value; OnPropertyChanged(nameof(IsActivityDatePickerVisible)); }
         }
 
-        // Comandos para las acciones de la vista
+        // Comandos
         public ICommand LogoutCommand { get; }
         public ICommand RegenerateCodeCommand { get; }
         public ICommand ToggleDayButtonsCommand { get; }
@@ -129,7 +191,6 @@ namespace Mockup.MVVM.ModelViewModel
 
         public UserDashboardViewModel()
         {
-            // Inicializa el máximo de fecha usando la zona horaria de Sonora
             try
             {
                 TimeZoneInfo sonoraTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/Hermosillo");
@@ -141,23 +202,108 @@ namespace Mockup.MVVM.ModelViewModel
                 MaximumDate = DateTime.Today;
             }
 
-            // Inicializa los comandos
             LogoutCommand = new Command(async () => await Logout());
-            RegenerateCodeCommand = new Command(async () => await RegenerateCode());
+            RegenerateCodeCommand = new Command(async () => await RegenerateCodeAsync());
             ToggleDayButtonsCommand = new Command(() => AreDayButtonsVisible = !AreDayButtonsVisible);
             ToggleDatePickerCommand = new Command(() => IsActivityDatePickerVisible = !IsActivityDatePickerVisible);
             SelectDayCommand = new Command<string>(async (routinePage) => await SelectDay(routinePage));
         }
 
-        // Método que genera un código de 6 dígitos y lo muestra
-        private async Task RegenerateCode()
+        // Llama a la API para cargar los datos del usuario a partir del NIP
+        private async Task LoadUserDataAsync(string nip)
         {
-            Random random = new Random();
-            string newCode = random.Next(100000, 999999).ToString();
-            await Shell.Current.DisplayAlert("Nuevo código", $"El nuevo código de acceso es: {newCode}", "OK");
+            if (string.IsNullOrEmpty(nip))
+                return;
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    // Ajusta la URL de tu API
+                    string url = $"https://6m5r2ddv-5210.usw3.devtunnels.ms/api/Clients/ConsultarClientePorNIP?NIP={nip}";
+                    var response = await client.GetAsync(url);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        var data = JsonSerializer.Deserialize<ClienteDto>(json, new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        });
+
+                        if (data != null)
+                        {
+                            NombreCompleto = data.nombre_Completo;
+                            NIP = data.nip;
+                            Foto = string.IsNullOrWhiteSpace(data.foto) ? "user.png" : data.foto;
+                            Celular = data.celular;
+                            ClaveSeguridad = data.clave_Seguridad;
+                            if (!string.IsNullOrEmpty(data.membresia))
+                                Membership = data.membresia;
+                            // Si fecha_Fin está vacía se asigna null
+                            ExpirationDate = string.IsNullOrWhiteSpace(data.fecha_Fin) ? null : data.fecha_Fin;
+                        }
+                    }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Error", "No se pudo obtener datos del usuario.", "OK");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", $"Excepción: {ex.Message}", "OK");
+            }
         }
 
-        // Método para cerrar sesión con confirmación
+        // Llama a la API para generar y actualizar la nueva clave de seguridad
+        private async Task RegenerateCodeAsync()
+        {
+            if (string.IsNullOrWhiteSpace(NIP))
+            {
+                await Shell.Current.DisplayAlert("Error", "No se tiene un NIP válido para regenerar el código.", "OK");
+                return;
+            }
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    // Ajusta la URL de la API para generar el código
+                    string url = "https://6m5r2ddv-5210.usw3.devtunnels.ms/api/Clients/Generar-Nueva-Clave-De-Seguridad";
+                    var body = new { NIP = this.NIP };
+                    var jsonBody = JsonSerializer.Serialize(body);
+                    var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+                    var response = await client.PutAsync(url, content);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseContent = await response.Content.ReadAsStringAsync();
+                        // Suponiendo que la API devuelve el nuevo código en la propiedad clave_Seguridad
+                        var data = JsonSerializer.Deserialize<ClienteDto>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        if (data != null && !string.IsNullOrEmpty(data.clave_Seguridad))
+                        {
+                            ClaveSeguridad = data.clave_Seguridad;
+                            await Shell.Current.DisplayAlert("Éxito", $"Nuevo código generado: {ClaveSeguridad}", "OK");
+                        }
+                        else
+                        {
+                            // Si no se devuelve, se recarga la información
+                            await LoadUserDataAsync(NIP);
+                            await Shell.Current.DisplayAlert("Éxito", "Se generó una nueva clave de seguridad.", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Error", $"No se pudo generar el nuevo código: {response.StatusCode}", "OK");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
+            }
+        }
+
         private async Task Logout()
         {
             bool confirm = await Shell.Current.DisplayAlert("Cerrar sesión", "¿Estás seguro de que quieres cerrar sesión?", "Sí", "No");
@@ -167,14 +313,12 @@ namespace Mockup.MVVM.ModelViewModel
             }
         }
 
-        // Método para navegar a la página de rutina según el día seleccionado
         private async Task SelectDay(string routinePage)
         {
             if (string.IsNullOrEmpty(routinePage))
                 return;
 
             Page page = null;
-            // Se selecciona la página según el parámetro recibido
             switch (routinePage)
             {
                 case "RoutineMondayPage":
@@ -205,7 +349,6 @@ namespace Mockup.MVVM.ModelViewModel
             }
         }
 
-        // Actualiza las rutinas detalladas según el músculo seleccionado
         private void UpdateDetailedRoutines()
         {
             if (SelectedRoutine == "Pecho")
@@ -278,7 +421,6 @@ namespace Mockup.MVVM.ModelViewModel
             }
         }
 
-        // Muestra un modal con el detalle de la rutina seleccionada
         private async void ShowRoutineDetailModal()
         {
             await Shell.Current.DisplayAlert("Rutina seleccionada",
@@ -286,17 +428,14 @@ namespace Mockup.MVVM.ModelViewModel
                 "OK");
         }
 
-        // Muestra información de la actividad al seleccionar una fecha
         private async void ShowActivityInfo()
         {
-            string branch = "\nPuerto de Mazatlán 4602, México, 85190 Cd. Obregón, Son.";
-            string formattedDate = SelectedDate.ToString("D");
+            string formattedDate = SelectedDate.ToString("D", CultureInfo.CurrentCulture);
             await Shell.Current.DisplayAlert("Actividad:",
-                $"Fecha de entrada:\n {formattedDate}\nSucursal: {branch}",
+                $"Fecha de entrada:\n {formattedDate}",
                 "OK");
         }
 
-        // Método auxiliar para notificar cambios en las propiedades
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

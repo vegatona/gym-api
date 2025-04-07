@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|c:\\users\\cisco01\\desktop\\mockupsgym\\mvvm\\modelviewmodel\\newpasswordviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|solutionrelative:mvvm\\modelviewmodel\\newpasswordviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|c:\\users\\cisco01\\desktop\\mockupsgym\\mvvm\\modelviewmodel\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|solutionrelative:mvvm\\modelviewmodel\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|c:\\users\\cisco01\\desktop\\mockupsgym\\mvvm\\view\\newpasswordpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|solutionrelative:mvvm\\view\\newpasswordpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|c:\\users\\cisco01\\desktop\\mockupsgym\\mvvm\\view\\userdashboardpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|solutionrelative:mvvm\\view\\userdashboardpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|c:\\users\\cisco01\\desktop\\mockupsgym\\mvvm\\view\\newpasswordpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|solutionrelative:mvvm\\view\\newpasswordpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|c:\\users\\cisco01\\desktop\\mockupsgym\\mvvm\\modelviewmodel\\userdashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|solutionrelative:mvvm\\modelviewmodel\\userdashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|c:\\users\\cisco01\\desktop\\mockupsgym\\mvvm\\view\\userdashboardpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|solutionrelative:mvvm\\view\\userdashboardpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|c:\\users\\cisco01\\desktop\\mockupsgym\\mvvm\\models\\clientedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FFC6799-8079-4CC8-A23C-3077F4A0BEAC}|Mockup.csproj|solutionrelative:mvvm\\models\\clientedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,41 +42,67 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\ModelViewModel\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "MVVM\\ModelViewModel\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\ModelViewModel\\LoginViewModel.cs",
+              "RelativeToolTip": "MVVM\\ModelViewModel\\LoginViewModel.cs",
+              "ViewState": "AgIAAKEAAAAAAAAAAAA6wLkAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T21:47:24.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "NewPasswordPage.xaml",
-              "DocumentMoniker": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\View\\NewPasswordPage.xaml",
-              "RelativeDocumentMoniker": "MVVM\\View\\NewPasswordPage.xaml",
-              "ToolTip": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\View\\NewPasswordPage.xaml",
-              "RelativeToolTip": "MVVM\\View\\NewPasswordPage.xaml",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAADAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-04T21:18:21.092Z",
+              "Title": "UserDashboardViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\ModelViewModel\\UserDashboardViewModel.cs",
+              "RelativeDocumentMoniker": "MVVM\\ModelViewModel\\UserDashboardViewModel.cs",
+              "ToolTip": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\ModelViewModel\\UserDashboardViewModel.cs",
+              "RelativeToolTip": "MVVM\\ModelViewModel\\UserDashboardViewModel.cs",
+              "ViewState": "AgIAAN4AAAAAAAAAAAAAAN4AAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T15:38:44.085Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "NewPasswordPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\View\\NewPasswordPage.xaml.cs",
-              "RelativeDocumentMoniker": "MVVM\\View\\NewPasswordPage.xaml.cs",
-              "ToolTip": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\View\\NewPasswordPage.xaml.cs",
-              "RelativeToolTip": "MVVM\\View\\NewPasswordPage.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T21:18:20.365Z",
+              "Title": "UserDashboardPage.xaml",
+              "DocumentMoniker": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\View\\UserDashboardPage.xaml",
+              "RelativeDocumentMoniker": "MVVM\\View\\UserDashboardPage.xaml",
+              "ToolTip": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\View\\UserDashboardPage.xaml",
+              "RelativeToolTip": "MVVM\\View\\UserDashboardPage.xaml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACIAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-07T15:38:42.052Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "NewPasswordViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\ModelViewModel\\NewPasswordViewModel.cs",
-              "RelativeDocumentMoniker": "MVVM\\ModelViewModel\\NewPasswordViewModel.cs",
-              "ToolTip": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\ModelViewModel\\NewPasswordViewModel.cs",
-              "RelativeToolTip": "MVVM\\ModelViewModel\\NewPasswordViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAASAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "UserDashboardPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\View\\UserDashboardPage.xaml.cs",
+              "RelativeDocumentMoniker": "MVVM\\View\\UserDashboardPage.xaml.cs",
+              "ToolTip": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\View\\UserDashboardPage.xaml.cs",
+              "RelativeToolTip": "MVVM\\View\\UserDashboardPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T20:38:03.649Z",
+              "WhenOpened": "2025-04-07T19:56:50.877Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ClienteDto.cs",
+              "DocumentMoniker": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\Models\\ClienteDto.cs",
+              "RelativeDocumentMoniker": "MVVM\\Models\\ClienteDto.cs",
+              "ToolTip": "C:\\Users\\cisco01\\Desktop\\MockupsGym\\MVVM\\Models\\ClienteDto.cs",
+              "RelativeToolTip": "MVVM\\Models\\ClienteDto.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAArwAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T20:16:39.909Z",
               "EditorCaption": ""
             }
           ]

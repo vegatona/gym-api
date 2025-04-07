@@ -1,12 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Net.Http;
-using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
-using System.Text;
-using System.Text.Json;
+using Microsoft.Maui.Storage;
+using Mockup.MVVM.Models;
 
 namespace Mockup.MVVM.ModelViewModel
 {
@@ -32,6 +33,7 @@ namespace Mockup.MVVM.ModelViewModel
                 ValidateForm();
             }
         }
+
         public string Password
         {
             get => _password;
@@ -42,6 +44,7 @@ namespace Mockup.MVVM.ModelViewModel
                 ValidateForm();
             }
         }
+
         public string ErrorMessage
         {
             get => _errorMessage;
@@ -51,6 +54,7 @@ namespace Mockup.MVVM.ModelViewModel
                 OnPropertyChanged(nameof(ErrorMessage));
             }
         }
+
         public string PasswordErrorMessage
         {
             get => _passwordErrorMessage;
@@ -60,6 +64,7 @@ namespace Mockup.MVVM.ModelViewModel
                 OnPropertyChanged(nameof(PasswordErrorMessage));
             }
         }
+
         public bool IsErrorVisible
         {
             get => _isErrorVisible;
@@ -69,6 +74,7 @@ namespace Mockup.MVVM.ModelViewModel
                 OnPropertyChanged(nameof(IsErrorVisible));
             }
         }
+
         public bool IsPasswordErrorVisible
         {
             get => _isPasswordErrorVisible;
@@ -78,6 +84,7 @@ namespace Mockup.MVVM.ModelViewModel
                 OnPropertyChanged(nameof(IsPasswordErrorVisible));
             }
         }
+
         public bool IsLoginEnabled
         {
             get => _isLoginEnabled;
@@ -88,19 +95,19 @@ namespace Mockup.MVVM.ModelViewModel
             }
         }
 
-        // Comandos para iniciar sesión y navegar a otras páginas.
         public ICommand LoginCommand { get; }
         public ICommand GoToRegisterCommand { get; }
         public ICommand GoToRecoverPasswordCommand { get; }
+        public ICommand LogoutCommand { get; } // <--- Nuevo comando
 
         public LoginViewModel()
         {
             LoginCommand = new Command(ExecuteLogin);
             GoToRegisterCommand = new Command(async () => await Shell.Current.GoToAsync("//RegisterPage"));
             GoToRecoverPasswordCommand = new Command(async () => await Shell.Current.GoToAsync("//RecoverPasswordPage"));
+            LogoutCommand = new Command(async () => await ExecuteLogout()); // <--- Asociado al logout
         }
 
-        // Filtra el valor ingresado en el usuario permitiendo solo letras y números, limitado a 12 caracteres.
         private string SanitizeUsernumber(string input)
         {
             string sanitized = Regex.Replace(input ?? "", "[^a-zA-Z0-9]", "");
@@ -111,7 +118,6 @@ namespace Mockup.MVVM.ModelViewModel
         {
             bool isValid = true;
 
-            // Validación del usuario.
             if (string.IsNullOrWhiteSpace(UserNumber))
             {
                 ErrorMessage = "";
@@ -130,7 +136,6 @@ namespace Mockup.MVVM.ModelViewModel
                 IsErrorVisible = false;
             }
 
-            // Validación de la contraseña.
             if (string.IsNullOrWhiteSpace(Password))
             {
                 PasswordErrorMessage = "";
@@ -149,74 +154,78 @@ namespace Mockup.MVVM.ModelViewModel
                 IsPasswordErrorVisible = false;
             }
 
-            // Habilitar el botón de login solo si ambos campos tienen datos y son válidos.
             IsLoginEnabled = isValid &&
                              !string.IsNullOrWhiteSpace(UserNumber) &&
                              !string.IsNullOrWhiteSpace(Password);
         }
 
-        // Valida la contraseña mediante una expresión regular.
         private bool IsValidPassword(string password)
         {
             if (string.IsNullOrWhiteSpace(password)) return false;
-            // En este ejemplo se requiere mínimo 8 caracteres, una mayúscula, una minúscula y un dígito.
             var regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$");
             return regex.IsMatch(password);
         }
 
-        // Ejecuta el login realizando una petición HTTP POST a la API de autenticación.
         private async void ExecuteLogin()
         {
-            if (IsLoginEnabled)
+            if (!IsLoginEnabled) return;
+
+            var credentials = new
             {
-                var credentials = new
+                nombre_Usuario = UserNumber,
+                contraseña = Password
+            };
+
+            try
+            {
+                var handler = new HttpClientHandler
                 {
-                    nombre_Usuario = UserNumber,
-                    contraseña = Password
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
                 };
 
-                try
+                using (var client = new HttpClient(handler))
                 {
-                    // Configuramos el HttpClientHandler para ignorar errores de certificado.
-                    var handler = new HttpClientHandler
+                    client.BaseAddress = new Uri("https://6m5r2ddv-5210.usw3.devtunnels.ms/");
+                    var json = JsonSerializer.Serialize(credentials);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync("api/auth/login", content);
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    await Shell.Current.DisplayAlert("Debug", $"Código: {response.StatusCode}\nRespuesta: {responseContent}", "OK");
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-                    };
+                        var loginResult = JsonSerializer.Deserialize<LoginResponseDto>(responseContent, new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        });
 
-                    using (var client = new HttpClient(handler))
+                        if (!string.IsNullOrEmpty(loginResult?.Token))
+                        {
+                            await SecureStorage.SetAsync("userToken", loginResult.Token);
+                        }
+
+                        await Shell.Current.GoToAsync($"//UserDashboardPage?UserNumber={UserNumber}");
+                    }
+                    else
                     {
-                        // Usar la dirección especial para el emulador Android.
-                        client.BaseAddress = new Uri("https://6m5r2ddv-5210.usw3.devtunnels.ms/");
-
-                        var json = System.Text.Json.JsonSerializer.Serialize(credentials);
-                        var content = new StringContent(json, Encoding.UTF8, "application/json");
-                        var response = await client.PostAsync("api/auth/login", content);
-
-                        // mostra el error
-                        var responseContent = await response.Content.ReadAsStringAsync();
-                        await Shell.Current.DisplayAlert("Debug", $"Código: {response.StatusCode}\nRespuesta: {responseContent}", "OK");
-
-                        if (response.IsSuccessStatusCode)
-                        {
-                            // Navegar a la siguiente página en caso de éxito.
-                            await Shell.Current.GoToAsync($"//UserDashboardPage?username=Ruben González&UserNumber={UserNumber}");
-                        }
-                        else
-                        {
-                            // Mostrar un mensaje de error si las credenciales no son válidas.
-                            await Shell.Current.DisplayAlert("Error", "Las credenciales no son válidas.", "OK");
-                        }
+                        await Shell.Current.DisplayAlert("Error", "Las credenciales no son válidas.", "OK");
                     }
                 }
-                catch (Exception ex)
-                {
-                    // Manejo de excepciones: muestra el error producido.
-                    await Shell.Current.DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
-                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
             }
         }
 
-        // Método para limpiar todos los campos y mensajes (por ejemplo, al navegar fuera de la página).
+        // NUEVO: Método para cerrar sesión
+        private async Task ExecuteLogout()
+        {
+            SecureStorage.Remove("userToken"); // Borrar token
+            await Shell.Current.GoToAsync("//LoginPage"); // Regresar al login
+        }
+
         public void ClearFields()
         {
             UserNumber = string.Empty;
